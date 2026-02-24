@@ -1,0 +1,74 @@
+Fibonacci Örneğini Ele Alarak Konuyu işledik (Recursive vs Iterative)
+Fibonacci dizisini recursive (özyinelemeli) fonksiyon ile çözebiliriz. Aynı problem iterative (döngüsel) şekilde de çözülebilir.
+Burada derste hangi çözümü kullanmamız gerektiğini tartıştık.
+Bir çözümü değerlendirirken:
+Çözümün karmaşıklığına bakılır.
+Kullanılan zaman (time) analiz edilir.
+Kullanılan hafıza (memory) incelenir.
+Algoritma Analizinde Neye Bakılır?
+Bir algoritmayı değerlendirirken genellikle şunlara bakılır:
+- Time (zaman)
+- Memory (bellek)
+Dikkate alınmayanlar (ignore):
+- Hardware
+- İşletim sistemi
+- IDE
+- Programlama dili (C, C++, Python vs.)
+
+Asıl amacımız algoritmanın teorik performansını ölçmek.
+
+Time (Zaman) Analizi
+Zaman derken gerçek saniye ölçmeyiz.
+Ölçtüğümüz şey:
+Girdi boyutuna (n) bağlı olarak yapılan işlem sayısı.
+n arttıkça çalışma süresi nasıl değişiyor?
+Recursive Fibonacci Analizi
+Recursive Fibonacci:
+F(n)=F(n−1)+F(n−2)
+Zaman karmaşıklığını gösteren recurrence:
+T(n)=T(n−1)+T(n−2)+1
+Yaklaşık olarak üst sınırdan:
+T(n)≈2T(n−1)
+Bu açılım devam ederse:
+T(n)=2nT(1)
+Recursive Fibonacci'nin zaman karmaşıklığı O(2ⁿ)'dir. Üstel (exponential) karmaşıklık.
+
+Dersteki örneğimiz:
+n = 50 → yaklaşık 2⁵⁰ işlem
+n = 60 → yaklaşık 2⁶⁰ işlem
+Bu değerler çok hızlı büyür. Bu yüzden recursive Fibonacci verimsizdir.
+Iterative Fibonacci döngü ile yazıldığında:
+Her adımda sabit işlem yapılır. n adımda tamamlanır.
+Zaman karmaşıklığı: O(n). Yani lineer karmaşıklık.
+
+Recursive ile yazıldığında ise:
+Call stack kullanır. Ek bellek maliyeti vardır.
+Iterative çözüm:
+Sabit sayıda değişken kullanır.Daha az bellek harcar.
+
+Karmaşıklık Türleri
+Zaman karmaşıklıkları büyüme hızına göre sıralanır:
+O(1) → Sabit zaman
+O(log n) → Logaritmik
+O(n) → Lineer
+O(n log n) → Lineer-logaritmik
+O(n²) → Karesel
+O(n³) → Kübik
+O(2ⁿ) → Üstel
+O(n!) → Faktöriyel
+
+Polynomial vs Non-Polynomial
+Polynomial (Polinomsal): O(n), O(n²), O(n³), O(nᵏ)
+Non-polynomial: O(2ⁿ), O(n!)
+NP (Non-deterministic Polynomial time) problemlerinde çözüm üretmek zor olabilir. Verilen çözümü doğrulamak polynomial sürede olabilir.
+
+Algoritma Seçimi
+Bir problemi çözerken farklı yöntemler olabilir.
+Her yöntemin zaman ve bellek karmaşıklığı farklıdır.
+En hızlı büyüyen terim (dominant term) dikkate alınır.
+Sabitler ve düşük dereceli terimler ihmal edilir.
+
+Kitaptaki Üzerinde Tartıştığımız Problem
+Maximum Subarray Sum (Max Sub Sum)
+Bir dizide en büyük toplamı veren alt diziyi bulma problemi.
+Bu problem farklı karmaşıklıklarda çözülebilir.
