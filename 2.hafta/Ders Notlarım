@@ -1,1 +1,7 @@
+Derste kullanacağımız kitaplar ->KNUTH ALGORITM BOOK serisi(Donald Knuth), Data strucutres and algortim Analyses in C++ (kitabın kodları 
+kısa kod ile çok iş yapıyor, bizim takip edeceğimiz kitap bu), Robert Sedgewick in kitabı da ders için uygun
+Machine Learning algoritmalarının (Logistic regression, Random Forest...) karmaşıklıklarını işleyeceğiz bu derste
+ML'de train ve test aşamasındaki karmaşıklıkları ayrılıyor.
 
+Elimizde bir problem var ve bu problem için 1 den fazla çözüm var. Bu çözümlerin time vev memoryleirne bakacağız.
+Time'ı ölçmek için 2 yöntem -> 1) number of commond 2) bilgisayara zamanı yazdırıyoruz()
