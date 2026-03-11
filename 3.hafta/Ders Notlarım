@@ -24,7 +24,7 @@ for ...
 } karmasiklik -> O(n)
 
 yontem 2:
-array1.sort()[0]  -> O(?)
+array1.sort()[0]  -> O(?) -> Burada maaliyet sort fonksiyonundan gelen maaliyet neyse o. O yüzden soru işareti koydukk.
 array1.sort()[len(array1)-1]  -> -1
 Bu algoritmanin karmasikligi sorttan gelen maliyet kadardir. Sort eger diziyi dondururse karmasiklik ayni olur ama bellek ihtiyaci artar. O(n)
 
