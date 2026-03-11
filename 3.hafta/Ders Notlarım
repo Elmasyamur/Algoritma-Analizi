@@ -1,1 +1,152 @@
+Best-case : Yapacagim isi en kolay sekilde yapiyorum. Bir algoritmanin, mumkun olan girdiler arasinda en kisa calisma suresinde calistigi durumu ifade eder.
+Worst-case : Yapilan isi en zor sekilde yapmak. Bir algoritmanin, verilen girdi boyutu icin karsilasabilecegi en uzun calisma suresini ifade eder.
+Kacta kac ihtimalle best-case, worst-case gelir gibi analizler hesaplanacak.
+Average-case (Ortalama Durum) : Bir algoritmanin, tum olasi girdiler icin calisma surelerinin olasiliklara gore ortalamasi alindiginda ortaya cikan beklenen calisma suresini ifade eder.
 
+Dersteki yaptığımız 1. örnek:
+-2, 3, 1 ... -6 dizisindeki en kucuk elemani bulma algoritmasi
+yontem 1:
+min = i  -> if-else vs. yok. 1 dongu var. Yani karmasiklik -> O(n)
+min_t = -2 -> ilk elemani alip basta min olarak onu kabul ederiz.
+for ...
+    min_t = item
+
+max ve minin ikisini de bulan algoritma:
+max = i
+min = i
+max_t = -2
+min_t = -2
+for ...
+    if:
+        min_t = item
+    if:
+        max_t = item
+} karmasiklik -> O(n)
+
+yontem 2:
+array1.sort()[0]  -> O(?)
+array1.sort()[len(array1)-1]  -> -1
+Bu algoritmanin karmasikligi sorttan gelen maliyet kadardir. Sort eger diziyi dondururse karmasiklik ayni olur ama bellek ihtiyaci artar. O(n)
+
+Dersteki 2. Ornek :
+-2, 3, 1, ..., -6 dizisindeki 5. buyuk eleman nasil bulunur?
+Dizinin boyutu maliyetli olarak dusunursek bunu nasil cozeriz?
+1. yontem:
+array1.sort()[4] -> O(?) -> sorttan gelen maliyet.
+
+kitaptaki 2. yontem:
+-2, 3, 1, 4, 7 -> ilk 5 elemani siraladik.
+-2, 3, 1, 4, 7, 10, 15, 5, 26, ...
+for -> tek 1 dongude ilk 5 elemanla diger elemanlari karsilastirip buluyor. O(n)
+-> insertion sort degil ama o mantigi kullaniyor.
+
+Not: array1.sort()
+Buradaki sortta su algolar olabilir. Bubble, selection, insertion, bst, heap, quick sort.
+
+Dersteki 3. Ornek:
+-2, 3, 1, ..., -6 dizisinde aradigimiz elemani bulma problemi.
+search(item)
+search(-2) olsun. True, False
+
+1. yontem:
+for ...
+    if ... (aradigim elemani bulursan)
+        break X
+        continue X
+        return V -> aradigim elemani buldugumda return
+} O(n) maliyetli. 1 icin O(1), -6 icin O(n)
+
+Search (...) unsorted
+1 -> n. eleman
+Best-case : O(1) , 1/n ihtimalle en iyi maliyetle arama sona erer.
+1 -> son eleman
+Worst-case : O(n) , 1/n ihtimalle en kotu maliyetle arama sona erer.
+
+average-case : n/2 karmasiklik yani bunu O(n) olarak yazariz.
+
+-2, 2, 3, ..., n
+1 + 2 + 3 + ... + n = n(n+1)/2 / n = n/2 -> average case maliyet
+1. de bulma maliyeti (1 for dongusu)
+2. de bulma maliyeti (2 for dongusu)
+-> n'e bolmemizin nedeni hepsinin maliyetini toplam eleman sayisina bolup ortalamayi bulmak.
+
+Search (item) sorted-array
+use binary-search
+Dizi bir sirali dizi oldugunda binary search kullan. Bunun nedeni kazancin cok fazla olmasi.
+
+best-case = 1 -> aranan eleman tekte bulundu.
+worst-case : log n -> Tek bir sayi olunca log n step'te tek bir sayiya indiriyoruz.
+average-case : log n
+
+k tane adim var.
+n -> k. eleman
+n/2
+(n/2)/2
+...
+3
+2
+1
+} 2^k = n => k = log n
+
+Sirali dizide orta elemana bakariz. Aradigimla ayni mi? Degilse ve aradigim daha kucukse sol kisimda aramaya baslariz ve dizinin n/2'sine gitmis olur. O da degilse (n/2)/2'sine gider.
+Bu sekilde devam eder. (n/2)/2, ((n/2)/2)/2 ...
+
+Dersteki 4. Ornek
+-2, 3, 1, ..., 6 dizisini bubble sort ile sirala.
+
+-2, 3, 1, ..., 6
+-> Tek bir dongude buraya 50 geliyor maliyet n.
+n
+n-1
+n-2
+...
+1
++ -----------
+n.(n+1)/2 -> O(n^2)
+} Bubble sortta karmasiklik hesaplama maliyeti bu cikiyor.
+
+Eger selection sort ile siralarsak;
+(ilk indisi sirayla tum sayilarla karsilastirip yerine koyduk)
+-2'yi yerine koymak icin en kotu n tane step gezeriz.
+n
+n-1
+n-2
+} Tum sayilar yerlerine konuldu.
+...
+1
++ -----------
+n.(n+1)/2 -> O(n^2)
+
+Not: Best-case'te aradigim sayi ilk sayi mi?
+Not: Worst-case'te aradigim sayi son sayi mi?
+
+Selection ve bubble farkinda bubble'da swap az cunku her sayiyi selection'da karsilastiriyoruz ama bubble'de 2 sayiyi karsilastiriyoruz. 
+Ikisi de ayni karmasiklikta / maliyette O(n^2) ama bellek ihtiyaclari (bu swap olayindan dolayi) degisiyor.
+Insertion Sort ile Siralama (maaliyet yani): O(n) (Best-case) , O(n^2) (Worst-case)
+
+-2, 3, 1, 4, 2, 5, 6 ... -> sonda -10 olsaydi tum onceki sayilarla karsilastirilmaliydi.
+-2, 3 (degisim yok)
+-2, 1, 3, 4, 2 -> en sona gelince oncekilerden buyukse yerinde kaliyor.
+-2, 1, 3, 2, 4 (yer degistirme) -> Diziye sirali gelince tek karsilastirma gerekiyor.
+-2, 1, 2, 3, 4, 5, 6
+Elemanlar teker teker alinip onceki sirali dizi ile karsilastirilip orada uygun yere yerlestiriliyor.
+- Her gelen sayi daha onceki bloktan buyuk ise (best-case) bu durumda maliyet:
+1 + 1 + 1 + 1 + ... + 1 } Best-case
+O(n) -> maliyet bu olurdu.
+- Eger her seferinde en kucuk olan sayi gelirse, en kotu durumda maliyet:
+1. eleman ... 15. eleman ... 30. eleman
+1 + 2 + 3 + ... + 15 + ... + 30 } worst-case
+n(n+1)/2 -> O(n^2)
+-> En kotu durumda bubble ve selection ile ayni maliyete sahip olur ki bu da dusuk (1/n) ihtimaldir (worst-case ihtimali).
+Insertion sortta tek bir dongude veri siralanirsa O(n) ile buradan cikariz.
+
+Araştırın: insertion sort with romanian folk dance (Konuyla ilgili güzel öğreti).
+
+Bubble -> O(n^2)
+Selection -> O(n^2)
+Insertion -> O(n), O(n^2)
+bst -> n log n
+heap -> n log n
+quick Sort -> n log n , n^2
+} Yapilar da bazen bellek kadar ihtiyaci oluyor. Duruma gore degisiyor.
+Önemli not: Insertion Sortun hem best-case'i hem worst-case'e gore farkli maliyetleri var.
