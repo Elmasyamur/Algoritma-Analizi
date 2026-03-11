@@ -6,7 +6,7 @@ Average-case (Ortalama Durum) : Bir algoritmanin, tum olasi girdiler icin calism
 Dersteki yaptığımız 1. örnek:
 -2, 3, 1 ... -6 dizisindeki en kucuk elemani bulma algoritmasi
 yontem 1:
-min = i  -> if-else vs. yok. 1 dongu var. Yani karmasiklik -> O(n)
+min = i  -> if-else vs. yok. 1 dongu var. Yani karmasiklik -> O(n).
 min_t = -2 -> ilk elemani alip basta min olarak onu kabul ederiz.
 for ...
     min_t = item
@@ -38,7 +38,7 @@ kitaptaki 2. yontem:
 -2, 3, 1, 4, 7 -> ilk 5 elemani siraladik.
 -2, 3, 1, 4, 7, 10, 15, 5, 26, ...
 for -> tek 1 dongude ilk 5 elemanla diger elemanlari karsilastirip buluyor. O(n)
--> insertion sort degil ama o mantigi kullaniyor.
+- insertion sort degil ama o mantigi kullaniyor.
 
 Not: array1.sort()
 Buradaki sortta su algolar olabilir. Bubble, selection, insertion, bst, heap, quick sort.
