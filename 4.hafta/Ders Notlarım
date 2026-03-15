@@ -84,8 +84,7 @@ O(1) best-case'i ayrica raporlamaya gerek yok.
 
 -> derivative -> 1, 2, -1, 4, 3 -> O(1) olsa bile memory problemi var.
 
-Stack -> Array , Pointer-Based
-(kesisimde degisiyor)
+Stack -> Array , Pointer-Based (ikisinde degisiyor)
 # read
 pop() -> Array: O(1) , Pointer-Based: O(n), O(1) (sadece head varsa), (head ve tail/basi sonu gosteren 2 ptr varsa)
 sondaki elemani al gibi. Read ile benzer.
