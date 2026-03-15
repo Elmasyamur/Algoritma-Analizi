@@ -1,1 +1,123 @@
+- c, logn, n, nlogn, n^2, n^3 ... 2^n
+- O, Omega, Theta, o
+- best-case, worst-case, average-case
 
+not: List, Stack, Queue -> Dilden bagimsiz yapilar.
+C, C++, Python, JS, ts, C#, Java
+-> STL (Standart Template Library), collection
+ADTs (Abstract Data Types)
+
+List -> ADT'da listeyi nasil olusturdugunu soylemez.
+-> create (bir liste olustur)
+insert
+delete
+update
+
+Stack (LIFO) -> Stack'e ihtiyac varsa en son islenen elemana tekrar ihtiyac duyulacak demektir. pop ve push islemi var. Son giren ilk cikar.
+
+! set yapisi bir agac yapisi. Tam bir bst degil.
+! vector yapisi, calisma zamaninda ihtiyaca gore oto buyuyup kuculebilen dizi.
+! Map (Mapping) -> Hash
+! Dequeue (Cift uclu kuyruk) -> Eleman ekleme ve cikarma islemlerinin hem bastan hem de sondan yapilabildigi bir veri yapisidir.
+! Queue -> FIFO -> ilk giren ilk cikar.
+
+! C#'ta bir integer array olustururken baslangic degeri vermezsek oto (default degerler) 0 veriyor. int sayilar = new int[5] as birimlik yer ayiriyor.
+! C#'ta silme islemi yok, default deger veriyor. (JS'de splice ile yapiliyor.)
+
+Array
+size, type
+. , . , 5 , . , .
+
+Pointer-Based
+head -> [ ] -> [ ] -> [ ] -> [ ] -> tail
+<-    <-    <-    <-  (eger cift yonlu olursa)
+
+Array
+insert(5) -> En sona ekleniyor.
+insert(2, 5) -> 2. indisteki yere 5'i ekle.
+} Insert ornegi bu; yapiya bir sey ekleme.
+-> Array cinsi oldugunda karmasiklik:
+O(1) -> cunku indisi verip bellekte sirali olan yere eklenir.
+-> Array class ise en son eklenecek eleman ayni. Yani insert(5) ve insert(2, 5) farkli degil.
+O(1)        O(1)
+
+* Arrayda delete -> delete(5)
+-> Arraylerde boyle bir ozellik olmadigi icin tanimsiz (maliyet).
+* Arrayda update
+-> update(2, 6) -> maliyeti O(1) -> 2. indekse 6 elemanini ekle.
+* Arrayde read
+-> read(2) -> maliyet O(1)
+(index)
+
+Pointer-Based
+* insert(5) -> Basa, sona veya pointer yapisi siraliysa sirasina uygun bir yere eklenebilir.
+-> insert(5) basa eklenirse O(1)'dir. Sona eklersek O(n)'dir. Eger 5'i sirali olan uygun yere koyarsak ortalamasini soyleyebiliriz. Maliyet O(n)'dir. n/2 denistir ama O(n) olarak yaziyoruz.
+* insert(5)'te sona eklerken maliyeti O(n) degil de O(1) olsun istersek cift yonlu bir liste kullanmamiz gerekir. Sadece head eklersek 1 pointer, head ve tail eklersek 2 pointer olur. Cift yonlu yapi olursa 4 pointer gerekir.
+* Pointer-based'de delete islemi:
+Best-case -> O(1)
+Worst-case -> O(n)
+Average-case -> O(n) (n/2)
+} Butun yapiyi ele aliyorsak O(n)'e gider.
+
+not: comparison of list data structures (wikipedia'dan inceleyin)
+not: Hangi dilde yaziyorsak arrayde delete karmasikligi ona gore gorulebilir.
+
+* pointer-based update
+-> update(5, 6) (5'i 6 yap)
+} best-case: O(1)
+worst-case: O(n)
+average-case: O(n) (n/2)
+
+* pointer-based read (pointerda indeks yok)
+-> read(2) -> O(n) -> Best-case O(1) ama genelde soylenmez. (2. olan elemani getirir. pointer yapisi)
+! linked list (pointer yapisi) ve array ile olusunca maliyet degisiyor.
+
+List -> Array , pointer
+} insert, delete -> array'de delete yok., update, read
+
+! Array'de delete'i formlu hale getirmek icin:
+delete } shift -> O(n) -> JS'deki slice da ayni seyi yapiyor.
+       } derivative -> O(1), memory problemi
+-> shift -> 1, 2, 5, 4, 3, 6 -> O(n) = worst-case
+(5'i sil, 5'ten sonrakileri butun olarak kaydir.)
+O(1) best-case'i ayrica raporlamaya gerek yok.
+
+-> derivative -> 1, 2, -1, 4, 3 -> O(1) olsa bile memory problemi var.
+
+Stack -> Array , Pointer-Based
+(kesisimde degisiyor)
+# read
+pop() -> Array: O(1) , Pointer-Based: O(n), O(1) (sadece head varsa), (head ve tail/basi sonu gosteren 2 ptr varsa)
+sondaki elemani al gibi. Read ile benzer.
+# write
+push(5) -> Array: O(1) , Pointer-Based: O(n), O(1)
+write ile benzer. insert'e de benziyor.
+
+not: array veya pointer olmasina gore -> insert, delete, update, read islemleri degisiyor.
+
+* pop (stack) -> en sondan siliyor.
+[ 7 ] -> 7'yi aliyor. Read islemiyle delete islemi ayni anlama geliyor.
+[ 6 ]
+[ 5 ]
+[ 2 ]
+-> en sondaki elemani gosteren yapiyi(ptr) 1 asagi getir.
+
+! Stack'te pointer-based push:
+O(n) -> en sona eklersek
+O(1) -> eger en sonu da gosteren bir pointer (tail) varsa O(1)
+
+Queue -> Array , Pointer-based
+# write
+enqueue -> Array: O(1) , Pointer-based: O(n), O(1)
+# read (kuyrugun basini okuyacak.)
+dequeue -> Array: ? (bunun yerine shift veya derivative. Array based'de kuyruk yapisi yok) , Pointer-based: Direkt O(1) diyebiliriz. O(1), O(1) # head guncellendi. (tail varsa)
+
+! Arrayin basini sil diye bir yapi yok. Onun icin yine shift veya (bu yapilar var) derivative gibi seyler kullanilmali.
+
+! Liste, kuyruk, stack yapilari var. Listeye wrapper yazarak stack ve kuyruga gidiliyor.
+wrapper (sarmalayici) : Var olan bir veri yapisini (orn. liste) kullanip onun etrafina yeni bir yapi gibi davranan bir sinif (arayuz) sarmaktir.
+
+List -> CRUD, insert, delete, update/read
+Queue -> read -> dequeue, write -> enqueue
+Stack -> read -> pop, write -> push(...)
+} STL ve collectionlarda bunlar var. Bunlarin maliyetleri O(1) ile O(n) arasinda degisiyor.
