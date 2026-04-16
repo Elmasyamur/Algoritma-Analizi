@@ -5,8 +5,12 @@ yaklasimla tutulabilir: Array-based (dizi tabanli) ve Pointer-based (isaretci ta
 Array-based (Dizi Tabanli) Yapilarin Derinlemesine Analizi:
 Diziler bellekte ardisik (pes pese) bloklar halinde tutuldugu icin bazi konularda cok hizli, bazi konularda ise maliyetlidir.
 I) Indeks Erisimi: [i] seklindeki erisimler dogrudan bir hafiza adresi hesabi oldugu icin anindadir. Bu nedenle maliyeti O(1)'dir.
-II) Remove (Silme) Islemi: Dizinin ortasindan bir eleman silindiginde, boslugu doldurmak icin sagdaki tum elemanlarin birer adim sola kaydirilmasi gerekir (shift). Bu kaydirma isleminden dolayi silme maliyeti en kotu durumda O(n) olur. Alternatif olarak silinen yere ozel bir isaret (delimiter) koymak memory (hafiza) kullanimini etkiler.
-III) Amortized Cost (Itfa Edilmis Maliyet) ve Dinamik Boyut: Diziler baslangicta sabit boyutlu olarak (fixed size / initial value) yaratilir. Dinamik diziler doldugunda, mevcut boyut belirli bir carpan veya toplamla (size * 2, size + 2, size + 5 gibi) artirilir. Bu boyut buyutme isleminde tum eski elemanlar yeni diziye tek tek kopyalandigi icin o anki islem O(n) maliyet yaratir. Ancak bu islem cok nadir oldugu icin uzun vadedeki ortalama maliyet yine O(1) kabul edilir.
+II) Remove (Silme) Islemi: Dizinin ortasindan bir eleman silindiginde, boslugu doldurmak icin sagdaki tum elemanlarin birer adim sola kaydirilmasi gerekir (shift).
+Bu kaydirma isleminden dolayi silme maliyeti en kotu durumda O(n) olur. Alternatif olarak silinen yere ozel bir isaret (delimiter) koymak memory (hafiza) kullanimini etkiler.
+III) Amortized Cost (Itfa Edilmis Maliyet) ve Dinamik Boyut: Diziler baslangicta sabit boyutlu olarak (fixed size / initial value) yaratilir. 
+Dinamik diziler doldugunda, mevcut boyut belirli bir carpan veya toplamla (size * 2, size + 2, size + 5 gibi) artirilir. 
+Bu boyut buyutme isleminde tum eski elemanlar yeni diziye tek tek kopyalandigi icin o anki islem O(n) maliyet yaratir. 
+Ancak bu islem cok nadir oldugu icin uzun vadedeki ortalama maliyet yine O(1) kabul edilir.
 
 Pointer-based (Isaretci Tabanli) Yapilarin Sorunlari:
 O(n) erisim maliyeti vardir cunku elemanlar hafizada daginiktir ve birbirlerini isaret ederler.
@@ -17,11 +21,10 @@ Solution 2 altinda aciklanan kisimda iki ana probleme deginilmistir:
 Maliyet Dusurme Hiyerarsisi:
 Dizilerde veya bagli listelerde eleman aramak genelde O(n) maliyetindedir.
 Eger bu yapilari Tree (Agac - ornegin Binary Search Tree) formuna donustururseniz, arama ve islem maliyeti O(log n) seviyesine duser.
-Bununla da yetinmeyip erisim suresini O(1) yapmak isterseniz Hash (Karma / Sozluk) veri yapilarina gecis yapmaniz gerekir. Tahtadaki O(n) -> O(log n) -> O(1) akisi bunu temsil eder.
+Bununla da yetinmeyip erisim suresini O(1) yapmak isterseniz Hash (Karma / Sozluk) veri yapilarina gecis yapmaniz gerekir.
+O(n) -> O(log n) -> O(1) akisi bunu temsil eder.
 
----
-
-3 Nisan Tahta Notlari - Bolum 2: List, Stack, Queue ve Yapay Sinir Aglari (MLP)
+List, Stack, Queue ve Yapay Sinir Aglari (MLP)
 
 1) List<T> (Jenerik Liste) Analizi:
 Liste yapilari arka planda dinamik dizi kullanir.
@@ -40,7 +43,8 @@ Son giren ilk cikar mantigidir (LIFO). Gorselde [2, 5, ... 6] elemanlari bir blo
 Ilk giren ilk cikar mantigidir (FIFO).
 -> enqueue(item): Kuyrugun en sonuna eleman gelir, islem maliyeti O(1)'dir.
 -> dequeue(): Kuyrugun en basindaki ilk eleman cikar. Eger normal bir dizi kullaniliyorsa, bastaki eleman ciktiginda arkada kalan tum elemanlar birer adim one kaydirilmak (shift) zorundadir ve maliyet O(n) olur.
--> Performans Cozumu (No-Shift): O(n) maliyetini O(1)'e dusurmek icin shift yapmayan bir tasarim kullanilir. Buna dairesel kuyruk (circular buffer) denir. Tahtadaki numaralandirilmis yuvarlak cark cizimi bunu temsil eder. Elemanlari kaydirmak yerine, kuyrugun baslangic ve bitis isaretcileri dairesel olarak doner.
+-> Performans Cozumu (No-Shift): O(n) maliyetini O(1)'e dusurmek icin shift yapmayan bir tasarim kullanilir. Buna dairesel kuyruk (circular buffer) denir. Bufferdaki numaralandirilmis yuvarlak cark cizimi bunu temsil eder.
+Elemanlari kaydirmak yerine, kuyrugun baslangic ve bitis isaretcileri dairesel olarak doner.
 
 Makine Ogrenmesi ve Perceptron (Yapay Sinir Hucresi) Notlari:
 Tahtanin en alt kisminda basit bir yapay sinir hucresi cizilmistir.
