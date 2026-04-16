@@ -1,1 +1,49 @@
+ADT -> Abstract Data Type (Soyut Veri Tipi)
+Bir veri yapisinin uygulanma detaylarindan ziyade, hangi islemleri yapabildigini tanimlar.
+-> List -> add, delete, search, update islemlerini destekler.
+-> FIFO (First In First Out) -> Queue (Kuyruk) mantigidir. Ilk eklenen ilk cikar (add, delete).
+-> LIFO (Last In First Out) -> Stack (Yigin) mantigidir. Son eklenen ilk cikar (add, delete).
 
+Eger bu yapilar array-based (dizi tabanli) olarak kodlanirsa:
+-> access (erisim) -> O(1) maliyetindedir.
+-> delete (silme) -> O(n) maliyetine cikabilir (elemanlari kaydirma gereksinimi).
+
+Class A ve Nesne Islemleri
+Siniflar icerisinde Enumerable (sayilabilir, next islemi) ve Comparable (karsilastirilabilir: ==, >, <) ozellikler bulunabilir.
+Nesne atamalari ve karsilastirmalarinin maliyetleri:
+-> A A2; veya A B2(A2); gibi islemlerde yapilan kopyalamanin derinligine gore maliyet O(1) (sig kopya) veya O(n) (derin kopya) olabilir.
+-> if (A1 == B1) -> Eger referans karsilastirmasiysa (==, ===) O(1)'dir. Eger elemanlar tek tek kiyaslaniyorsa O(n) olur.
+-> B2.f1(); islemi sonucunda A1 modifiye edilebilir (referans gosterimi).
+-> A1 = B1.copy(); -> Verilerin birebir kopyalanmasi islemi O(n) karmasikligindadir.
+
+Dinamik Dizilerdeki Problemler
+Problem: size, dynamic -> delete, resize...
+Dizilerin boyutu sabittir. Bu yuzden dinamik boyutlandirma (resize) islemlerinde karmasiklik (complexity) hesaplari cok onemlidir.
+
+Amortized Cost (Itfa Edilmis / Ortalama Maliyet)
+Ekleme islemi (insert) baslangicta bos yer varken O(1)'dir.
+[ ] ... size 1/4
+[5] = ... ; 
+insert(...) normalde O(1)
+Fakat boyut doldugunda (array full), dizinin daha buyuk bir kapasiteyle yeniden olusturulmasi (re-construct / resize) gerekir.
+Bu islem esnasinda butun elemanlar yeni diziye tasinacagi icin maliyet o anlik O(n) olur.
+
+Java example: resizable array (dinamik dizi, int[] gibi)
+Dinamik bir diziye sirayla eleman eklendiginde maliyetlerin analizi:
+insert(item 1) -> O(1)
+insert(item 2) -> O(1)
+...
+insert(item n) -> Array doldu! Kapasite artirilmali (*1.5 veya *2 katina cikarilir). Tum veri yeni diziye kopyalanir. Bu adimin maliyeti -> O(n)
+insert(item n+1) -> Yeni bos yer acildigi icin tekrar O(1)
+insert(item n+2) -> O(1)
+
+Maliyetin Matematiksel Gosterimi:
+Eger dizi her doldugunda kapasitesini sadece 1 eleman artirsaydi:
+Maliyet toplami: 1 + 2 + 3 + ... + n olurdu.
+(n(n+1)/2) / n = (n+1)/2 -> O(n) ortalama maliyet cikardi. Bu cok verimsizdir.
+
+Fakat kapasite her doldugunda 2 katina cikarilirsa:
+Toplam yapilan tasima ve ekleme islemleri hesaplandiginda, n tane elemani eklemek icin yaklasik 2n islem yapilir.
+Maliyet = (Toplam Islem) / (Eleman Sayisi)
+Maliyet = 2n / n = 2 = O(1)
+Yani; dizi doldugunda yapilan O(n)'lik tasima islemi, diger tum O(1)'lik adimlara dagitilir (amortize edilir) ve dinamik dizilere eleman eklemenin ortalama maliyeti O(1) olarak kabul edilir.
