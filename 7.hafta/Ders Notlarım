@@ -1,4 +1,3 @@
-
 Bu derste STL (Standard Template Library) ve Collection yapilarinin temelini oluşturan
 Soyut Veri Tipleri (ADT - Abstract Data Type) uzerinde durulmuştur. Bir veri yapısı hafizada iki temel 
 yaklasimla tutulabilir: Array-based (dizi tabanli) ve Pointer-based (isaretci tabanli).
