@@ -1,1 +1,51 @@
 
+Bu derste STL (Standard Template Library) ve Collection yapilarinin temelini oluşturan
+Soyut Veri Tipleri (ADT - Abstract Data Type) uzerinde durulmuştur. Bir veri yapısı hafizada iki temel 
+yaklasimla tutulabilir: Array-based (dizi tabanli) ve Pointer-based (isaretci tabanli).
+
+Array-based (Dizi Tabanli) Yapilarin Derinlemesine Analizi:
+Diziler bellekte ardisik (pes pese) bloklar halinde tutuldugu icin bazi konularda cok hizli, bazi konularda ise maliyetlidir.
+I) Indeks Erisimi: [i] seklindeki erisimler dogrudan bir hafiza adresi hesabi oldugu icin anindadir. Bu nedenle maliyeti O(1)'dir.
+II) Remove (Silme) Islemi: Dizinin ortasindan bir eleman silindiginde, boslugu doldurmak icin sagdaki tum elemanlarin birer adim sola kaydirilmasi gerekir (shift). Bu kaydirma isleminden dolayi silme maliyeti en kotu durumda O(n) olur. Alternatif olarak silinen yere ozel bir isaret (delimiter) koymak memory (hafiza) kullanimini etkiler.
+III) Amortized Cost (Itfa Edilmis Maliyet) ve Dinamik Boyut: Diziler baslangicta sabit boyutlu olarak (fixed size / initial value) yaratilir. Dinamik diziler doldugunda, mevcut boyut belirli bir carpan veya toplamla (size * 2, size + 2, size + 5 gibi) artirilir. Bu boyut buyutme isleminde tum eski elemanlar yeni diziye tek tek kopyalandigi icin o anki islem O(n) maliyet yaratir. Ancak bu islem cok nadir oldugu icin uzun vadedeki ortalama maliyet yine O(1) kabul edilir.
+
+Pointer-based (Isaretci Tabanli) Yapilarin Sorunlari:
+O(n) erisim maliyeti vardir cunku elemanlar hafizada daginiktir ve birbirlerini isaret ederler.
+Solution 2 altinda aciklanan kisimda iki ana probleme deginilmistir:
+1) [i] ile dogrudan indeks erisiminin olmamasi isaretciler icin bir erisim problemidir. Aranan elemani bulmak icin bastan baslayip tek tek ilerlemek gerekir.
+2) Her veri sadece kendisini degil, bir sonraki verinin adresini de (pointer) tuttugu icin bellekte ekstra Memory (hafiza) harcar.
+
+Maliyet Dusurme Hiyerarsisi:
+Dizilerde veya bagli listelerde eleman aramak genelde O(n) maliyetindedir.
+Eger bu yapilari Tree (Agac - ornegin Binary Search Tree) formuna donustururseniz, arama ve islem maliyeti O(log n) seviyesine duser.
+Bununla da yetinmeyip erisim suresini O(1) yapmak isterseniz Hash (Karma / Sozluk) veri yapilarina gecis yapmaniz gerekir. Tahtadaki O(n) -> O(log n) -> O(1) akisi bunu temsil eder.
+
+---
+
+3 Nisan Tahta Notlari - Bolum 2: List, Stack, Queue ve Yapay Sinir Aglari (MLP)
+
+1) List<T> (Jenerik Liste) Analizi:
+Liste yapilari arka planda dinamik dizi kullanir.
+-> add: Listenin en sonuna islem yapar. _items[_count] = item mantigiyla calisir ve dogrudan eklendigi icin maliyeti O(1)'dir.
+-> search: Degeri bulmak icin bastan sona tarama yapilacagindan maliyeti O(n)'dir.
+-> remove: Bulunan degeri silip digerlerini kaydirmayi gerektirdigi icin maliyeti O(n)'dir.
+-> update: Kacinci siradaki elemanin degisecegi ([i]) biliniyorsa O(1)'dir. Ancak once search ile bulunup sonra degistirilecekse maliyet O(n) olur.
+-> insert(index i, T item): Listenin istedigimiz bir ara sirasina eleman eklemektir. Tahtadaki ornekte [1, 5, 6, 7] dizisinde 2. indekse 9 rakamini eklemek isteniyor. 9'un o araya girebilmesi icin 6 ve 7'nin saga kaydirilmasi (shift) gerekir. Bu yuzden araya ekleme isleminde maliyet O(n)'dir.
+
+2) Stack<T> (Yigin) Analizi:
+Son giren ilk cikar mantigidir (LIFO). Gorselde [2, 5, ... 6] elemanlari bir blok icerisinde, "Front" isaretcisiyle gosterilmistir.
+-> push(): Yiginin her zaman en tepe noktasina eleman eklendigi icin kaydirma olmaz, maliyeti O(1)'dir.
+-> pop(): Yiginin en tepe noktasindaki eleman silindigi icin yine kaydirma olmaz, maliyeti O(1)'dir.
+
+3) Queue<T> (Kuyruk) Analizi:
+Ilk giren ilk cikar mantigidir (FIFO).
+-> enqueue(item): Kuyrugun en sonuna eleman gelir, islem maliyeti O(1)'dir.
+-> dequeue(): Kuyrugun en basindaki ilk eleman cikar. Eger normal bir dizi kullaniliyorsa, bastaki eleman ciktiginda arkada kalan tum elemanlar birer adim one kaydirilmak (shift) zorundadir ve maliyet O(n) olur.
+-> Performans Cozumu (No-Shift): O(n) maliyetini O(1)'e dusurmek icin shift yapmayan bir tasarim kullanilir. Buna dairesel kuyruk (circular buffer) denir. Tahtadaki numaralandirilmis yuvarlak cark cizimi bunu temsil eder. Elemanlari kaydirmak yerine, kuyrugun baslangic ve bitis isaretcileri dairesel olarak doner.
+
+Makine Ogrenmesi ve Perceptron (Yapay Sinir Hucresi) Notlari:
+Tahtanin en alt kisminda basit bir yapay sinir hucresi cizilmistir.
+x0, x1, x2 seklindeki giris verileri (input), w0, w1, w2 seklindeki agirlik degerleriyle (weight) carpilir. Tahtadaki Sigma sembolu bu carpimlarin toplandigini (Z) gosterir.
+Matematiksel vektor carpimi olarak X^T W (veya X * W) seklinde ifade edilir.
+MNIST Veri Seti Ornegi: Rakam tanima egitimi icin kullanilan populer bir veri setidir. m = 70000 adet resim barindirir.
+Her bir resim (Xi) 28x28 piksel formatindadir. Egitim asamasinda (MLP modelinde), bu kare matris duzlestirilir ve 28x28 = 784 uzunlugunda tek boyutlu bir vektore cevrilerek agin icine sokulur. Epoch egitim dongulerini ifade eder.
