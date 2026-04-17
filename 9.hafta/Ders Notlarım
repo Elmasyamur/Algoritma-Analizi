@@ -1,1 +1,135 @@
+Bu derste vizedeki hesaplama sorularının çözümlerini tartıştık.
+FIFO dequeue ile ilgili uygulama yaptık.
+Binary Search Tree konusu ve karmaşıklıkları işlendi.
 
+Asimptotik Analiz ve Büyüme Hızları
+Bir algoritmanın çalışma süresini ifade eden f(n) = 5n^2 + 20n + log n + 50 gibi bir fonksiyonda, karmaşıklık hesaplanırken en büyük büyüme hızına sahip olan dominant (baskın) terim dikkate alınır. 
+Katsayılar ve daha yavaş büyüyen terimler (20n, log n, 50) ihmal edilir. Bu durumda karmaşıklık n^2 terimine bağlıdır.
+
+Üst Sınır (Big-O) Analizi:
+Big-O notasyonu algoritmanın en kötü durumda ne kadar süreceğini belirtir.
+f(n) = O(p(n)) olabilmesi için f(n) <= c * p(n) şartını sağlayan bir c sabiti ve n >= n0 koşulu olmalıdır.
+5n^2 + 20n + log n + 50 fonksiyonunun kesin üst sınırı O(n^2) olarak ifade edilir. Teorik olarak O(n^3) ve O(n^4) de bu fonksiyon için birer üst sınırdır,
+ancak algoritma analizinde her zaman en dar (en sıkı) üst sınır raporlanır.
+
+Alt Sınır (Omega) Analizi:
+Omega notasyonu algoritmanın en iyi ihtimalle ne kadar süreceğini belirtir. n^2 büyüme hızındaki bir algoritma için alt sınır Omega(n^2)'dir. Yine teorik olarak Omega(n),
+Omega(log n) veya Omega(1) de alt sınırdır ancak anlamlı bir analiz için en sıkı alt sınır tercih edilir.
+
+Sıkı Sınır (Theta) Analizi:
+Bir algoritmanın hem üst sınırı hem de alt sınırı aynı dereceye sahipse (örneğin ikisi de n^2 ise), bu algoritmanın karmaşıklığı tam olarak Theta(n^2) ile ifade edilir.
+
+Limit Testi ile Karmaşıklık Bulma:
+İki fonksiyonun birbirine göre asimptotik durumunu belirlemek için n sonsuza giderken limitleri alınabilir.
+lim (n -> sonsuz) p(n) / f(n) işlemi sonucunda çıkan değere göre fonksiyonların büyüme hızları kıyaslanır ve Big-O veya Theta kararı matematiksel olarak ispatlanabilir.
+
+İç İçe Döngülerin Maliyeti (Nested Loops)
+
+n defa çalışan bir dış döngü ve onun içinde i defa (dış döngünün o anki adım sayısına bağlı olarak) çalışan bir iç döngü düşünelim.
+for i in range(n):
+    for j in range(i):
+        print("1")
+
+Burada içteki print komutu her adımda 1 birimlik O(1) sabit iş yapar. Toplam çalışma sayısı bir seri toplamıdır:
+1 + 2 + 3 + ... + n
+Bu aritmetik serinin toplam formülü n * (n + 1) / 2'dir.
+Denklem açıldığında (n^2 + n) / 2 elde edilir. Dominant terim n^2 olduğu için bu algoritmanın karmaşıklığı O(n^2), Omega(n^2) ve Theta(n^2)'dir.
+
+Amortized Cost (İtfa Edilmiş Maliyet) ve Veri Yapıları
+
+Dizi tabanlı (array-based) yapılarda kapasite dolduğunda boyutu büyütme stratejisi performansı belirler.
+Kapasiteyi *2 veya *1.2 gibi bir çarpanla büyütmek, elemanların yeni diziye kopyalanma maliyetini ardışık eklenecek yeni elemanlara böler ve ortalama ekleme maliyetini O(1) yapar. 
+Ancak kapasiteyi sabit bir sayıyla (örneğin +2) artırmak her doluşta sürekli taşıma yapmayı gerektireceği için ortalama maliyeti artırır.
+
+Kuyruk (Queue) yapılarında FIFO (İlk Giren İlk Çıkar) prensibi vardır. Standart bir dizide dequeue (eleman çıkarma) işlemi kalan tüm elemanları bir öne kaydırmayı gerektirdiği için silme maliyeti O(n) olur. 
+Eğer dairesel işaretçi mantığı kullanılıp elemanlar kaydırılmazsa bu maliyet O(1)'e düşer.
+Sıralama algoritmalarında Selection Sort her durumda tam tarama yaptığı için O(n^2) karmaşıklığa sahiptir. Insertion Sort ise ortalama ve en kötü durumda O(n^2) iken, 
+dizi zaten sıralıysa best-case'de O(n) karmaşıklığa iner.
+
+Yinelemeli (Recurrence) Bağıntıların Çözümü
+
+Böl ve Fethet (Divide and Conquer) algoritmalarının zaman karmaşıklıkları yinelemeli denklemlerle ifade edilir ve teleskopik / yerine koyma metodu ile çözülür.
+
+Denklem 1: T(n) = 2T(n/2) + n
+Bu denklem, problemi iki yarıya bölen ve birleştirmek için n kadar iş yapan bir algoritmayı (örneğin Merge Sort) temsil eder.
+T(n)'i çözmek için alt adımların maliyetleri hesaplanıp toplanır:
+T(n) = 2T(n/2) + n
+T(n/2) fonksiyonu 2T(n/4) + n/2'ye eşittir. Bunu ana denklemdeki yerine koymak için tüm ifade 2 ile çarpılır:
+2T(n/2) = 4T(n/4) + 2 * (n/2) = 4T(n/4) + n
+Bir sonraki adımda T(n/4) yerine konur ve ifade 4 ile çarpılır:
+4T(n/4) = 8T(n/8) + 4 * (n/4) = 8T(n/8) + n
+
+Bu işlem n değeri 1 olana kadar (base case) tekrarlanır. Her seviyede algoritmanın yaptığı iş miktarı daima n olarak kalmaktadır.
+Bu bölme işleminin kaç adım (k) süreceği n = 2^k eşitliğinden bulunur. Buradan k = log n çıkar.
+Toplam maliyet: Her biri n iş yapan k adet seviyenin toplamıdır.
+k defa n'in toplanması k * n sonucunu verir.
+k yerine log n yazıldığında denklemin çözümü O(n log n) olarak bulunur.
+
+Denklem 2: T(n) = 8T(n/2) + n^2
+Bu denklem, problemi iki yarıya bölen ancak her alt dalı 8 kere çağıran ve birleştirme işi için n^2 kadar iş yapan bir algoritmayı temsil eder.
+Alt adımlar şu şekilde açılır ve taraf tarafa çarpılır:
+T(n) = 8T(n/2) + n^2
+T(n/2) fonksiyonunu bulup denklemi 8 ile çarptığımızda:
+8T(n/2) = 8 * [8T(n/4) + (n/2)^2] = 64T(n/4) + 8 * (n^2 / 4) = 64T(n/4) + 2n^2
+Bir sonraki seviyede ifadeyi 64 ile çarptığımızda:
+64T(n/4) = 64 * [8T(n/8) + (n/4)^2] = 512T(n/8) + 64 * (n^2 / 16) = 512T(n/8) + 4n^2
+
+Burada her seviyedeki ekstra iş miktarının bir geometrik dizi oluşturduğu görülür:
+n^2, 2n^2, 4n^2, ..., (2^k)n^2
+Bu terimlerin tamamı toplanmalıdır:
+n^2 * (1 + 2 + 4 + 8 + ... + 2^k)
+Parantez içindeki geometrik serinin toplamı yaklaşık olarak son terimin iki katına, yani 2 * 2^k değerine eşittir.
+Problemin k adımda 1'e ulaştığını ve 2^k = n olduğunu biliyoruz.
+Bu durumda toplam maliyet formülü: n^2 * (2 * n) halini alır.
+Çarpım yapıldığında sonucun 2n^3 olduğu görülür.
+Sabit sayılar Big-O analizinde atıldığı için bu algoritmanın zaman karmaşıklığı kesin olarak O(n^3)'tür.
+
+BST ile ilgili derste işlediklerimiz:
+
+Binary Search Tree (İkili Arama Ağacı) ve Algoritmik Maliyet Analizi
+Binary Search Tree (BST), her düğümün en fazla iki alt düğüme sahip olduğu ve  sol alt düğümün kendisinden küçük, sağ alt düğümün ise kendisinden büyük 
+değerleri tuttuğu bir veri yapısıdır. Bu hiyerarşik yapı, veriler üzerinde arama ve sıralama işlemlerini hızlandırmak için kullanılır.
+
+Temel İşlemler ve Maliyetleri
+
+find (Arama): Ağaç üzerinde bir elemanı bulma işlemi, kök düğümden başlanarak her adımda ihtimallerin yarıya indirilmesi prensibiyle çalışır. Aranan eleman 
+kök düğümdeyse maliyet en iyi durumda O(1) olur. Ağacın alt dallarına doğru inildikçe maliyet ağacın yüksekliğine bağlı olarak artar ve dengeli bir 
+ağaçta O(log n) olarak hesaplanır.
+
+insert (Ekleme): Yeni bir elemanın ağaca eklenmesi için önce doğru yerin bulunması gerekir. Tıpkı arama işleminde olduğu gibi doğru konumun tespit 
+edilmesi ve elemanın ağaca bağlanması işlemi O(log n) maliyetine sahiptir.
+
+delete (Silme): Ağaçtan bir düğüm silmek, eklemeye göre daha karmaşıktır. 
+İşlem temelde iki parçaya ayrılır. Öncelikle silinecek düğüm aranıp bulunur (bu işlem find komutu gibi çalışır ve O(log n) maliyetindedir). Düğüm 
+bulunduktan sonra ağaçtan koparılması gerekir. İşaretçilerin (single-pointer veya double-pointer manipülasyonu) yönlerinin değiştirilmesi anlık bir işlem 
+olduğu için sabit zamanlıdır ve O(1) maliyet ekler. Eğer silinen düğümün yerine geçecek en uygun eleman (sağ alt ağacın en küçüğü veya sol alt ağacın 
+en büyüğü) aranacaksa ekstra bir arama maliyeti (find + find + O(2) gibi) doğabilir. Ancak asimptotik analizde katsayılar ve sabitler atıldığı için 
+silme işleminin genel karmaşıklığı yine O(log n) olarak ifade edilir.
+
+Ağaç Dengesi (Balance) ve En Kötü Durum (Worst-Case)
+
+BST'nin O(log n) performans sunabilmesi için sağ ve sol alt dallarının dengeli (balanced) olması şarttır. Eğer ağaca elemanlar halihazırda sıralı 
+bir şekilde (örneğin sürekli artan veya sürekli azalan değerlerle) eklenirse, ağaç dallanmak yerine tek bir yöne doğru uzar. Bu duruma tek yöne yaslanmış 
+(skewed) ağaç denir ve yapısal olarak bağlı listeye (linked list) dönüşür.
+
+Böyle bir senaryo BST için en kötü durumdur (worst-case). Veriler tek bir çizgi halinde dizildiği için arama, ekleme veya silme işlemleri ağacın 
+yüksekliği olan n sayısına eşitlenir ve maliyet O(log n) seviyesinden O(n) 
+seviyesine fırlar.
+
+Heap Veri Yapısı ile Farkı
+
+Heap (Yığın) veri yapısı da görsel olarak bir ikili ağaca benzer ancak çalışma mantığı BST'den tamamen farklıdır. Heap yapısında elemanlar rastgele bir 
+alt-üst ilişkisiyle değil, öncelik sırasına göre yerleşir. Bu nedenle Heap içerisinde spesifik bir elemanı aramak O(log n) sürede yapılamaz. Belirli bir 
+veriyi aramak için tüm ağacı taramak gerekebilir.
+
+Karmaşıklık Ağacı (Recurrence Tree) ve Geometrik Seriler
+
+Algoritmaların maliyet analizinde, problemi alt problemlere bölen yapıların toplam iş yükünü hesaplamak için düğüm dallanmaları kullanılır. Bir ağacın 
+her seviyesindeki işlem sayısı yukarıdan aşağıya doğru 1, 2, 4, 8 şeklinde ikiye katlanarak n değerine kadar ilerler.
+
+Bu serinin toplamı matematiksel bir geometrik seridir: 
+1 + 2 + 4 + 8 + ... + n ifadesinin matematiksel sonucu 2n - 1'e eşittir.
+
+Eğer bu dallanmanın kullanıldığı problemin her bir ana adımında n^2 kadar ekstra iş yapılıyorsa, toplam iş yükü serinin sonucu ile çarpılarak bulunur.
+(2n - 1) ile n^2 çarpıldığında ortaya çıkan en büyük terim 2n^3 olur. Asimptotik notasyonda sabit sayılar (2 katsayısı) ve küçük terimler 
+önemsenmediği için bu algoritmanın genel zaman karmaşıklığı O(n^3) olarak raporlanır.
