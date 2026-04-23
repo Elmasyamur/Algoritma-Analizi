@@ -1,4 +1,4 @@
-# Algoritma-Analizi
+# Algoritma Analizi
 Derste yaptığımız her şeyi bu github'ta biriktirdim. 
 Her hafta derste işlediğimiz konular ve işlediğimiz konuyla alakalı derste birlikte çalıştırdığımız kodlar dahil 
 yaptığımız her şey burada. Aynı zamanda ders sırasında detaylıca defterime yazdığım notları da ekledim.
