@@ -2,36 +2,32 @@
 BST (Binary Search Tree), ikili ağaç yapısıdır ve şu kurala göre çalışır:
 Her düğümün sol alt ağacındaki tüm değerler < root
 Her düğümün sağ alt ağacındaki tüm değerler > root
+
 2. BST Temel İşlemler
 a) Search (Arama)
-Root’tan başlanır.
-Küçükse sola gidilir.
-Büyükse sağa gidilir.
+Root’tan başlanır. Küçükse sola gidilir. Büyükse sağa gidilir.
 b) Insert (Ekleme)
 Search mantığıyla uygun boş yere eklenir.
 c) Delete (Silme)
 3 durum vardır:
-1. Leaf node silme
-Direkt silinir.
-2. Tek çocuklu node
-Çocuk yukarı alınır.
-3. İki çocuklu node
-Sağ alt ağacın minimumu (inorder successor) alınır veya Sol alt ağacın maksimumu (predecessor) alınır.
+1. Leaf node silme => Direkt silinir.
+2. Tek çocuklu node => Çocuk yukarı alınır.
+3. İki çocuklu node => Sağ alt ağacın minimumu (inorder successor) alınır veya Sol alt ağacın maksimumu (predecessor) alınır.
 3. Time Complexity
 Ağacın yüksekliği = h
 İşlemler çoğunlukla yüksekliğe bağlıdır.
 
-İşlem	Best Case	Average Case	Worst Case
-Search	O(1)	    O(log n)	   O(n)
-Insert	O(1)	    O(log n)	   O(n)
-Delete	O(1)	    O(log n)	   O(n)
+İşlem	Best Case	   Average Case	  Worst Case
+Search	O(1)	         O(log n)	     O(n)
+Insert	O(1)	         O(log n)	     O(n)
+Delete	O(1)	         O(log n)	     O(n)
 
 4. Best / Worst / Average Case Açıklaması
 Best Case
 Aranan eleman root’tadır.
 Search(root) → bulundu ➡ O(1)
-Worst Case
 
+Worst Case
 BST dengesiz olursa linked list gibi olur.
 Örnek:
 10
@@ -76,8 +72,7 @@ Traversal	Sıra
 Inorder	Left Root Right
 Preorder	Root Left Right
 Postorder	Left Right Root
-Çok Önemli:
-BST’de Inorder traversal sonucu: ➡ Sorted order
+Çok Önemli: BST’de Inorder traversal sonucu: ➡ Sorted order
 
 9. BST Dezavantajı
 Normal BST bozulabilir.
@@ -85,7 +80,6 @@ Normal BST bozulabilir.
 AVL Tree
 Red Black Tree
 Splay Tree
-
 Bunlar self-balancing tree’dir.
 
 Sınavlık Kısa Özet
