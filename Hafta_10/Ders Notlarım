@@ -1,1 +1,103 @@
+1. BST Nedir?
+BST (Binary Search Tree), ikili ağaç yapısıdır ve şu kurala göre çalışır:
+Her düğümün sol alt ağacındaki tüm değerler < root
+Her düğümün sağ alt ağacındaki tüm değerler > root
+2. BST Temel İşlemler
+a) Search (Arama)
+Root’tan başlanır.
+Küçükse sola gidilir.
+Büyükse sağa gidilir.
+b) Insert (Ekleme)
+Search mantığıyla uygun boş yere eklenir.
+c) Delete (Silme)
+3 durum vardır:
+1. Leaf node silme
+Direkt silinir.
+2. Tek çocuklu node
+Çocuk yukarı alınır.
+3. İki çocuklu node
+Sağ alt ağacın minimumu (inorder successor) alınır veya Sol alt ağacın maksimumu (predecessor) alınır.
+3. Time Complexity
+Ağacın yüksekliği = h
+İşlemler çoğunlukla yüksekliğe bağlıdır.
 
+İşlem	Best Case	Average Case	Worst Case
+Search	O(1)	    O(log n)	   O(n)
+Insert	O(1)	    O(log n)	   O(n)
+Delete	O(1)	    O(log n)	   O(n)
+
+4. Best / Worst / Average Case Açıklaması
+Best Case
+Aranan eleman root’tadır.
+Search(root) → bulundu ➡ O(1)
+Worst Case
+
+BST dengesiz olursa linked list gibi olur.
+Örnek:
+10
+ \
+ 20
+   \
+   30
+     \
+     40
+Arama sona kadar iner. ➡ O(n)
+
+Average Case
+Rastgele eklemelerde ağaç genelde dengeliye yakın olur.
+Yükseklik yaklaşık: h≈logn ➡ İşlemler: O(log n)
+
+5. Average Case Analysis
+Mantık 
+Bir işlemde: her adımda ağacın yarısına gidilir. Problem boyutu küçülür:
+n,n/2,n/4,n/8...
+Bu seri logaritmik olarak biter.
+
+6. Telescoping Method Nedir?
+Toplamları sadeleştirerek çözme yöntemidir.
+Örneğin:
+T(n)=T(n−1)+1
+Açarız:
+T(n)=T(n−2)+1+1
+T(n)=T(1)+(n−1)
+Sonuç:
+T(n)=O(n)
+BST’de Nerede Kullanılır?
+Dengesiz BST’de insertion/search:
+T(n)=T(n−1)+1 ➡ telescoping ile: O(n)
+7. Dengeli BST’de Recurrence
+T(n)=T(n/2)+1
+Açarız:
+T(n)=T(n/4)+2
+T(n)=T(1)+logn ➡ O(log n)
+
+8. Traversals
+Traversal	Sıra
+Inorder	Left Root Right
+Preorder	Root Left Right
+Postorder	Left Right Root
+Çok Önemli:
+BST’de Inorder traversal sonucu: ➡ Sorted order
+
+9. BST Dezavantajı
+Normal BST bozulabilir.
+Çözüm:
+AVL Tree
+Red Black Tree
+Splay Tree
+
+Bunlar self-balancing tree’dir.
+
+Sınavlık Kısa Özet
+Balanced BST: Search / Insert / Delete = O(log n)
+Unbalanced BST: Worst case = O(n)
+Inorder traversal = sorted list
+Average case = O(log n)
+
+Telescoping:
+T(n)=T(n-1)+1 => O(n)
+T(n)=T(n/2)+1 => O(log n)
+
+NOT:
+BST hızlıdır çünkü her adımda arama alanını küçültür.
+Ama dengesiz olursa linked list’e dönüşür.  
